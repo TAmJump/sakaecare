@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社情報 | さかえケアサービス</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/corporate.css">
+</head>
+<body>
+    <header id="siteHeader">
+        <nav class="header-nav">
+            <a href="index.html" data-i18n="nav.top">Top</a>
+            <a href="service.html" data-i18n="nav.service">Service</a>
+            <a href="about-company.html" data-i18n="nav.company">Company</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="page-top">
+        <span class="page-label" data-i18n="company.label">About</span>
+        <h1 data-i18n="company.title">会社情報</h1>
+    </section>
+
+    <nav class="about-nav">
+        <a href="about-company.html" class="active" data-i18n="aboutnav.company">Company</a>
+        <a href="about-message.html" data-i18n="aboutnav.message">Message</a>
+        <a href="about-philosophy.html" data-i18n="aboutnav.philosophy">Philosophy</a>
+    </nav>
+
+    <section class="sec">
+        <div class="narrow">
+            <table class="info-table">
+                <tr><th data-i18n="company.name.label">Company</th><td data-i18n="company.name.value">株式会社さかえケアサービス</td></tr>
+                <tr><th data-i18n="company.founded.label">Founded</th><td data-i18n="company.founded.value">2015年4月</td></tr>
+                <tr><th data-i18n="company.ceo.label">CEO</th><td data-i18n="company.ceo.value">後藤 基温</td></tr>
+                <tr><th data-i18n="company.address.label">Address</th><td data-i18n="company.address.value">〒176-0012 東京都練馬区豊玉北5-11-4 さかえビル201</td></tr>
+                <tr><th data-i18n="company.capital.label">Capital</th><td data-i18n="company.capital.value">1,000万円</td></tr>
+                <tr><th data-i18n="company.business.label">Business</th><td data-i18n="company.business.value">DX・医療・介護</td></tr>
+                <tr><th data-i18n="company.email.label">Email</th><td><a href="mailto:info@scsgo.co.jp">info@scsgo.co.jp</a></td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section class="contact-band">
+        <p data-i18n="common.contact.desc">サービスに関するご質問・ご相談</p>
+        <a href="contact.html" class="text-link" data-i18n="common.contact.cta">お問い合わせ →</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="text-logo" style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;letter-spacing:0.08em;color:var(--black);display:block;margin-bottom:0.3rem;">Sakae Care Service</span>
+                <p data-i18n="footer.brand">すべてのイノチを∞にツナぐ</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="about-company.html" data-i18n="footer.about">会社情報</a>
+                    <a href="about-message.html" data-i18n="footer.message">代表メッセージ</a>
+                    <a href="about-philosophy.html" data-i18n="footer.philosophy">経営理念</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.service">Service</h4>
+                    <a href="service.html" data-i18n="footer.dx">DX</a>
+                    <a href="service.html" data-i18n="footer.medical">医療</a>
+                    <a href="service.html" data-i18n="footer.kaigo">介護</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.support">Support</h4>
+                    <a href="contact.html" data-i18n="footer.inquiry">お問い合わせ</a>
+                    <a href="recruit.html" data-i18n="footer.recruit">採用情報</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy.html" data-i18n="footer.privacy">プライバシーポリシー</a>
+                    <a href="terms.html" data-i18n="footer.terms">利用規約</a>
+                    <a href="security.html" data-i18n="footer.security">情報セキュリティ</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+    window.addEventListener('scroll', function() {
+        var h = document.getElementById('siteHeader');
+        if (h) { if (window.scrollY > 40) h.classList.add('scrolled'); else h.classList.remove('scrolled'); }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var els = document.querySelectorAll('.reveal');
+        if (!els.length) return;
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.15 });
+        els.forEach(function(el) { obs.observe(el); });
+    });
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/lang.js"></script>
+</body>
+</html>

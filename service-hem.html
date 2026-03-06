@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEM - Hospital Extension Model | さかえケアサービス</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/corporate.css">
+    <style>
+        /* ── HEM Hero ── */
+        .hem-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+        }
+        .hem-hero-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+        .hem-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 400;
+            line-height: 1.7;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+        .hem-hero-sub {
+            font-size: 1rem; opacity: 0.9;
+            margin-bottom: 1.5rem; font-weight: 400;
+        }
+        .hem-features {
+            display: flex; justify-content: center; gap: 1rem;
+            margin-top: 2rem; flex-wrap: wrap;
+        }
+        .hem-feature {
+            background: rgba(255,255,255,0.18);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem; font-weight: 500;
+        }
+        .hem-hero-note {
+            margin-top: 1.5rem; font-size: 1rem; font-weight: 600;
+        }
+
+        /* ── Section Title ── */
+        .hem-section { margin-bottom: 4rem; }
+        .hem-section-title {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 2rem; padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        .hem-section-title .icon {
+            width: 36px; height: 36px;
+            background: var(--primary);
+            color: #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+        }
+        .hem-section-title h2 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem; font-weight: 400;
+            color: var(--black); letter-spacing: 0.04em;
+        }
+
+        /* ── Cards ── */
+        .hem-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-100);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .hem-highlight {
+            background: var(--primary);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .hem-highlight h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem; font-weight: 400;
+        }
+
+        /* ── Problem Grid ── */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .problem-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .problem-card h4 {
+            font-family: var(--font-serif);
+            color: var(--primary-dark); margin-bottom: 0.5rem;
+            font-size: 0.95rem; font-weight: 400;
+        }
+        .problem-card p { font-size: 0.85rem; }
+
+        /* ── Two Column ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .hem-box {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+        .hem-box.before { border: 1px solid var(--gray-200); }
+        .hem-box.after { border: 2px solid var(--primary); }
+        .hem-box h4 {
+            font-family: var(--font-serif);
+            font-size: 0.95rem; font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+        .hem-box ul { list-style: none; }
+        .hem-box li { padding: 0.5rem 0; font-size: 0.88rem; color: var(--gray-500); }
+
+        /* ── Structure Grid ── */
+        .structure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .structure-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+        }
+        .structure-card-header {
+            background: var(--primary);
+            color: #fff; padding: 1rem; text-align: center;
+        }
+        .structure-card-header h4 {
+            font-family: var(--font-serif);
+            font-size: 0.9rem; font-weight: 400; color: #fff;
+        }
+        .structure-card-body { padding: 1.25rem; }
+        .structure-card-body ul { list-style: none; }
+        .structure-card-body li {
+            padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
+            font-size: 0.85rem; color: var(--gray-500);
+        }
+        .structure-card-body li:last-child { border-bottom: none; }
+
+        /* ── Revenue Table ── */
+        .hem-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .hem-table th, .hem-table td {
+            padding: 0.8rem 1rem; text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 0.88rem;
+        }
+        .hem-table th {
+            background: var(--primary); color: #fff;
+            font-weight: 500; font-size: 0.82rem;
+        }
+        .hem-table .total-row { background: var(--primary-pale); font-weight: 600; }
+
+        /* ── Points Grid ── */
+        .points-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0; }
+        .point-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+        .point-item p { font-size: 0.85rem; color: var(--charcoal); font-weight: 400; line-height: 1.6; }
+
+        /* ── Flow Steps ── */
+        .flow-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 2rem 0; }
+        .flow-step {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid var(--gray-100);
+        }
+        .flow-step .num {
+            display: inline-block; width: 28px; height: 28px;
+            background: var(--primary); color: #fff;
+            border-radius: 50%; line-height: 28px;
+            font-weight: 600; font-size: 0.8rem; margin-bottom: 0.5rem;
+        }
+        .flow-step p { font-size: 0.82rem; color: var(--charcoal); font-weight: 400; }
+        .flow-step small { color: var(--gray-400); }
+
+        /* ── Pricing Grid ── */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .pricing-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+        }
+        .pricing-header {
+            background: var(--primary); color: #fff;
+            padding: 1rem; text-align: center;
+        }
+        .pricing-header h4 {
+            font-family: var(--font-serif);
+            font-size: 0.9rem; font-weight: 400; color: #fff;
+        }
+        .pricing-body { padding: 1.25rem; }
+        .pricing-item {
+            display: flex; justify-content: space-between;
+            padding: 0.6rem 0; border-bottom: 1px solid var(--gray-100);
+        }
+        .pricing-item:last-child { border-bottom: none; }
+        .pricing-item .label { font-size: 0.82rem; color: var(--gray-500); }
+        .pricing-item .value { font-weight: 500; color: var(--charcoal); font-size: 0.88rem; }
+
+        /* ── Calculator ── */
+        .calculator {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            border: 2px solid var(--primary);
+            box-shadow: 0 8px 32px rgba(232,166,0,0.1);
+        }
+        .calc-title { text-align: center; margin-bottom: 2rem; }
+        .calc-title h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem; color: var(--primary-dark);
+            letter-spacing: 0.1em; margin-bottom: 0.3rem;
+        }
+        .calc-title p { font-size: 0.85rem; color: var(--gray-500); }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .calc-section {
+            background: var(--cream);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+        .calc-section h4 {
+            font-family: var(--font-serif);
+            color: var(--charcoal); margin-bottom: 1rem;
+            font-size: 0.95rem; font-weight: 400;
+        }
+        .input-group { margin-bottom: 0.8rem; }
+        .input-group label {
+            display: block; margin-bottom: 0.3rem;
+            font-size: 0.78rem; color: var(--gray-500);
+        }
+        .input-group input {
+            width: 100%; padding: 0.6rem 0.8rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem; color: var(--charcoal);
+            background: var(--white);
+        }
+        .input-group input:focus { outline: none; border-color: var(--primary); }
+        .input-row { display: flex; gap: 1rem; }
+        .input-row .input-group { flex: 1; }
+        .input-hint { font-size: 0.7rem; color: var(--gray-400); margin-top: 0.2rem; }
+        .calc-button {
+            display: block; width: 100%;
+            padding: 1rem; margin-top: 2rem;
+            background: var(--primary-dark); color: #fff;
+            border: none; border-radius: var(--radius-md);
+            font-size: 1rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s;
+            letter-spacing: 0.08em;
+        }
+        .calc-button:hover {
+            background: var(--primary);
+            box-shadow: 0 6px 24px rgba(232,166,0,0.3);
+        }
+        .result-box {
+            background: var(--primary);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .result-box h4 { font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.3rem; }
+        .result-value {
+            font-family: var(--font-display);
+            font-size: 2.2rem; font-weight: 400; letter-spacing: 0.05em;
+        }
+        .result-sub { font-size: 0.78rem; opacity: 0.85; margin-top: 0.3rem; }
+        .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 1rem; }
+        .result-item {
+            background: rgba(255,255,255,0.2);
+            padding: 0.8rem; border-radius: var(--radius-sm);
+        }
+        .result-item .rlabel { font-size: 0.72rem; opacity: 0.9; }
+        .result-item .rvalue { font-size: 1rem; font-weight: 500; margin-top: 0.2rem; }
+        .result-item.highlight { background: rgba(255,255,255,0.35); }
+        .result-item.positive .rvalue { color: #065f46; }
+        .result-item.negative .rvalue { color: #991b1b; }
+        .scenario-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.82rem; }
+        .scenario-table th { background: var(--primary); color: #fff; padding: 0.6rem; text-align: center; font-weight: 500; }
+        .scenario-table td { padding: 0.6rem; text-align: center; border-bottom: 1px solid var(--gray-100); }
+        .scenario-table .current-row { background: var(--primary-pale); font-weight: 600; }
+        .scenario-table .profit-positive { color: #065f46; font-weight: 600; }
+        .scenario-table .profit-negative { color: #991b1b; }
+
+        /* ── CTA ── */
+        .hem-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            text-align: center;
+            color: #fff;
+        }
+        .hem-cta h2 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem; font-weight: 400;
+            margin-bottom: 1rem; letter-spacing: 0.06em;
+        }
+        .hem-cta p { font-size: 0.95rem; color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; line-height: 2; }
+        .hem-cta-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #fff; color: var(--primary-dark);
+            border-radius: var(--radius-md);
+            font-weight: 500; font-size: 0.88rem;
+            transition: all 0.3s;
+        }
+        .hem-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+        @media (max-width: 768px) {
+            .hem-hero { padding: 8rem 1.5rem 3rem; }
+            .two-col, .calc-grid { grid-template-columns: 1fr; }
+            .structure-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .points-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-steps { grid-template-columns: 1fr; }
+            .result-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header id="siteHeader">
+        <nav class="header-nav">
+            <a href="index.html" data-i18n="nav.top">Top</a>
+            <a href="service.html" data-i18n="nav.service">Service</a>
+            <a href="about-company.html" data-i18n="nav.company">Company</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hem-hero">
+        <span class="hem-hero-label">HOSPITAL EXTENSION MODEL</span>
+        <h1>病床を増やさず、<br>病院の売上を"外に拡張する"。</h1>
+        <p class="hem-hero-sub">Hospital Extension Model（HEM）― 病院の外に、もう一つの病棟を。</p>
+        <div class="hem-features">
+            <div class="hem-feature">在院日数短縮でも収益を落とさない</div>
+            <div class="hem-feature">訪問看護を「地域貢献」で終わらせない</div>
+            <div class="hem-feature">病院主導で"退院後30日"を管理する</div>
+        </div>
+        <p class="hem-hero-note">▶ 新規設備投資ゼロ</p>
+    </section>
+
+    <div style="max-width:780px;margin:0 auto;padding:4rem 2rem;">
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">?</div><h2>なぜ、病院経営は努力しても苦しくなるのか</h2></div>
+            <div class="problem-grid">
+                <div class="problem-card"><h4>病床数＝売上上限</h4><p>どれだけ効率化しても、物理的な病床数が売上の天井を決めてしまう構造。</p></div>
+                <div class="problem-card"><h4>在院日数短縮＝売上減</h4><p>医療の質を上げて早く退院させるほど、売上が減るという矛盾。</p></div>
+                <div class="problem-card"><h4>退院後の患者流出</h4><p>退院した患者は他医療機関へ流れ、外来・検査・再入院の機会を逃している。</p></div>
+                <div class="problem-card"><h4>訪問看護の分断</h4><p>訪問看護は"別事業"として分断され、病院経営と連動していない。</p></div>
+            </div>
+            <div class="hem-highlight"><h3>→ 問題は医療の質ではなく「構造」</h3></div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">!</div><h2>HEMは「病院機能を外に延ばす」仕組みです</h2></div>
+            <div class="hem-card">
+                <p style="font-size:0.95rem;color:var(--charcoal);line-height:2;margin-bottom:1.5rem;"><strong>Hospital Extension Model（HEM）</strong>とは、退院後の患者を「外在病棟」として再定義し、病院主導で準・入院管理を継続する経営モデルです。</p>
+                <div class="two-col">
+                    <div class="hem-box before"><h4>従来モデル</h4><ul><li>✕ 退院＝売上終了</li></ul></div>
+                    <div class="hem-box after"><h4>HEMモデル</h4><ul><li>○ 退院＝外在病棟へ移行</li></ul></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">■</div><h2>HEMは"運営"ではなく"設計"です</h2></div>
+            <div class="structure-grid">
+                <div class="structure-card"><div class="structure-card-header"><h4>(1) 病院主導の訪問看護設計</h4></div><div class="structure-card-body"><ul><li>病院が指定する訪問看護</li><li>医師指示権は病院に帰属</li><li>他院の介入を防ぐ構造</li></ul></div></div>
+                <div class="structure-card"><div class="structure-card-header"><h4>(2) 診療報酬・加算の組合せ設計</h4></div><div class="structure-card-body"><ul><li>単体では弱い報酬を</li><li>パッケージとして最大化</li><li>取得率まで設計</li></ul></div></div>
+                <div class="structure-card"><div class="structure-card-header"><h4>(3) 患者動線の再設計</h4></div><div class="structure-card-body"><ul><li>退院 → HEM → 外来</li><li>外来 → 検査 → 再入院</li><li>患者を病院経済圏に戻す</li></ul></div></div>
+            </div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">$</div><h2>病床を増やさず、年間2億円規模のインパクト</h2></div>
+            <div class="hem-card">
+                <h4 style="margin-bottom:1rem;">例：100床モデル</h4>
+                <table class="hem-table">
+                    <thead><tr><th>項目</th><th>金額</th></tr></thead>
+                    <tbody>
+                        <tr><td>訪問看護＋加算</td><td>約2.0億円</td></tr>
+                        <tr><td>病院外来・検査</td><td>約0.1億円</td></tr>
+                        <tr class="total-row"><td><strong>合計</strong></td><td><strong>約2.1億円／年</strong></td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top:1rem;font-size:0.78rem;color:var(--gray-400);">※ 退院患者の30%のみ対象 ※ 新病棟・新設備なし</p>
+            </div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">#</div><h2>HEM可変モデル（自動計算）</h2></div>
+            <div class="calculator">
+                <div class="calc-title"><h3>HEM CALCULATOR</h3><p>病床数を入力すると、年間インパクトを自動計算します</p></div>
+                <div class="calc-grid">
+                    <div class="calc-section">
+                        <h4>病院基本情報</h4>
+                        <div class="input-group"><label>病床数（床）</label><input type="number" id="bedCount" value="100" min="10" max="1000"><div class="input-hint">病床数を変更すると全体が更新されます</div></div>
+                        <div class="input-row"><div class="input-group"><label>平均稼働率（%）</label><input type="number" id="occupancyRate" value="90" min="0" max="100"></div><div class="input-group"><label>平均在院日数（日）</label><input type="number" id="avgStayDays" value="60" min="1" max="365"></div></div>
+                    </div>
+                    <div class="calc-section">
+                        <h4>HEM設定</h4>
+                        <div class="input-row"><div class="input-group"><label>HEM対象比率（%）</label><input type="number" id="hemRatio" value="30" min="0" max="100"><div class="input-hint">退院患者のうちHEMへ移行する割合</div></div><div class="input-group"><label>管理期間（日）</label><input type="number" id="managementDays" value="30" min="1" max="90"></div></div>
+                        <div class="input-row"><div class="input-group"><label>30日あたり訪問回数</label><input type="number" id="visitsPerMonth" value="8" min="1" max="30"></div><div class="input-group"><label>訪問単価（円/回）</label><input type="number" id="visitPrice" value="9000" min="1000" step="500"></div></div>
+                    </div>
+                </div>
+                <div class="calc-grid" style="margin-top:1rem;">
+                    <div class="calc-section">
+                        <h4>加算・外来設定</h4>
+                        <div class="input-row"><div class="input-group"><label>加算売上（円/人）</label><input type="number" id="additionRevenue" value="48500" min="0" step="1000"></div><div class="input-group"><label>外来・検査復帰率（%）</label><input type="number" id="outpatientRate" value="40" min="0" max="100"></div></div>
+                        <div class="input-group"><label>外来・検査 売上/人（円）</label><input type="number" id="outpatientRevenue" value="20000" min="0" step="1000"></div>
+                    </div>
+                    <div class="calc-section">
+                        <h4>コスト設定</h4>
+                        <div class="input-row"><div class="input-group"><label>看護師数（0=自動計算）</label><input type="number" id="nurseCount" value="0" min="0" max="50"><div class="input-hint">0の場合：ROUNDUP(病床/50)+1</div></div><div class="input-group"><label>看護師 年間人件費（円/人）</label><input type="number" id="nurseSalary" value="6000000" min="0" step="100000"></div></div>
+                        <div class="input-row"><div class="input-group"><label>管理者・事務コスト（円/年）</label><input type="number" id="adminCost" value="3000000" min="0" step="100000"></div><div class="input-group"><label>その他経費（円/年）</label><input type="number" id="otherCost" value="2000000" min="0" step="100000"></div></div>
+                    </div>
+                </div>
+                <button class="calc-button" onclick="calculateHEM()">自動計算する</button>
+                <div class="result-box">
+                    <h4>年間売上合計</h4>
+                    <div class="result-value" id="totalRevenue">¥0</div>
+                    <div class="result-sub" id="revenueBreakdown">訪問看護: ¥0 + 加算: ¥0 + 外来: ¥0</div>
+                    <div class="result-grid">
+                        <div class="result-item"><div class="rlabel">年間退院患者数</div><div class="rvalue" id="annualDischarges">0人</div></div>
+                        <div class="result-item"><div class="rlabel">HEM対象患者数</div><div class="rvalue" id="hemPatients">0人</div></div>
+                        <div class="result-item"><div class="rlabel">年間総訪問回数</div><div class="rvalue" id="totalVisits">0回</div></div>
+                    </div>
+                    <div class="result-grid" style="margin-top:0.8rem;">
+                        <div class="result-item"><div class="rlabel">訪問看護売上</div><div class="rvalue" id="visitRevenue">¥0</div></div>
+                        <div class="result-item"><div class="rlabel">加算売上</div><div class="rvalue" id="additionRev">¥0</div></div>
+                        <div class="result-item"><div class="rlabel">外来・検査売上</div><div class="rvalue" id="outpatientRev">¥0</div></div>
+                    </div>
+                    <div class="result-grid" style="margin-top:0.8rem;">
+                        <div class="result-item"><div class="rlabel">看護師数</div><div class="rvalue" id="nurseCountResult">0人</div></div>
+                        <div class="result-item"><div class="rlabel">コスト合計</div><div class="rvalue" id="totalCost">¥0</div></div>
+                        <div class="result-item highlight" id="profitBox"><div class="rlabel"><strong>営業利益</strong></div><div class="rvalue" id="profit">¥0</div></div>
+                    </div>
+                </div>
+                <div style="margin-top:2rem;">
+                    <h4 style="text-align:center;margin-bottom:1rem;font-family:var(--font-serif);font-weight:400;">病床数別シナリオ比較</h4>
+                    <div style="overflow-x:auto;">
+                        <table class="scenario-table">
+                            <thead><tr><th>病床数</th><th>年間退院患者</th><th>HEM対象患者</th><th>売上合計</th><th>コスト合計</th><th>営業利益</th><th>利益率</th></tr></thead>
+                            <tbody id="scenarioBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">★</div><h2>HEMが"独占"できる理由</h2></div>
+            <div class="points-grid">
+                <div class="point-item"><p>契約条文による<br>排他設計</p></div>
+                <div class="point-item"><p>医師指示権・<br>患者帰属の設計</p></div>
+                <div class="point-item"><p>ブラックボックス化<br>された収益ロジック</p></div>
+                <div class="point-item"><p>段階導入による<br>ロックイン</p></div>
+            </div>
+            <div class="hem-highlight"><h3>→ ノウハウではなく「構造」を提供</h3></div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">→</div><h2>導入はシンプル、6ヶ月で形になる</h2></div>
+            <div class="flow-steps">
+                <div class="flow-step"><span class="num">1</span><p>現状分析<br><small>病床・人員・患者</small></p></div>
+                <div class="flow-step"><span class="num">2</span><p>HEM設計<br><small>法人・契約・報酬</small></p></div>
+                <div class="flow-step"><span class="num">3</span><p>訪問看護<br><small>立上げ or 再設計</small></p></div>
+                <div class="flow-step"><span class="num">4</span><p>段階導入<br><small>Phase1〜3</small></p></div>
+                <div class="flow-step"><span class="num">5</span><p>モニタリング<br><small>数値改善</small></p></div>
+            </div>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-section-title"><div class="icon">¥</div><h2>私たちは"運営"しません</h2></div>
+            <div class="pricing-grid">
+                <div class="pricing-card"><div class="pricing-header"><h4>初期設計費</h4></div><div class="pricing-body"><div class="pricing-item"><span class="label">HEM全体設計</span><span class="value">300〜500万円</span></div><p style="font-size:0.78rem;color:var(--gray-400);margin-top:0.8rem;">法人構造・契約設計・報酬設計を含む</p></div></div>
+                <div class="pricing-card"><div class="pricing-header"><h4>月額顧問</h4></div><div class="pricing-body"><div class="pricing-item"><span class="label">継続サポート</span><span class="value">30〜50万円/月</span></div><p style="font-size:0.78rem;color:var(--gray-400);margin-top:0.8rem;">運用支援・改善提案・数値分析</p></div></div>
+                <div class="pricing-card"><div class="pricing-header"><h4>成功報酬</h4></div><div class="pricing-body"><div class="pricing-item"><span class="label">売上増分の</span><span class="value">5〜10%</span></div><p style="font-size:0.78rem;color:var(--gray-400);margin-top:0.8rem;">成果に連動した報酬体系</p></div></div>
+            </div>
+            <p style="text-align:center;margin-top:1.5rem;font-size:0.85rem;color:var(--gray-400);">▶ 全国展開・海外展開可能</p>
+        </section>
+
+        <section class="hem-section">
+            <div class="hem-cta">
+                <h2>病院経営を、次の次元へ</h2>
+                <p>HEMは病床を増やすモデルではありません。<br>人を増やすモデルでもありません。<br><strong>「病院の構造を進化させるモデル」</strong>です。</p>
+                <a href="contact.html" class="hem-cta-btn">お問い合わせ →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="text-logo" style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;letter-spacing:0.08em;color:var(--black);display:block;margin-bottom:0.3rem;">Sakae Care Service</span>
+                <p data-i18n="footer.brand">すべてのイノチを∞にツナぐ</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="about-company.html" data-i18n="footer.about">会社情報</a>
+                    <a href="about-message.html" data-i18n="footer.message">代表メッセージ</a>
+                    <a href="about-philosophy.html" data-i18n="footer.philosophy">経営理念</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.service">Service</h4>
+                    <a href="service.html" data-i18n="footer.dx">DX</a>
+                    <a href="service.html" data-i18n="footer.medical">医療</a>
+                    <a href="service.html" data-i18n="footer.kaigo">介護</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.support">Support</h4>
+                    <a href="contact.html" data-i18n="footer.inquiry">お問い合わせ</a>
+                    <a href="recruit.html" data-i18n="footer.recruit">採用情報</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy.html" data-i18n="footer.privacy">プライバシーポリシー</a>
+                    <a href="terms.html" data-i18n="footer.terms">利用規約</a>
+                    <a href="security.html" data-i18n="footer.security">情報セキュリティ</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    // Header scroll
+    window.addEventListener('scroll', function() {
+        var h = document.getElementById('siteHeader');
+        if (h) { if (window.scrollY > 40) h.classList.add('scrolled'); else h.classList.remove('scrolled'); }
+    });
+
+    // Calculator
+    function formatNumber(n) { return '¥' + Math.round(n).toLocaleString('ja-JP'); }
+    function formatPercent(n) { return (n * 100).toFixed(1) + '%'; }
+    function calcHEM(bed, occ, stay, ratio, days, visits, price, add, opRate, opRev, nurses, salary, admin, other) {
+        var dis = (bed * (occ/100) * 365) / stay;
+        var hem = dis * (ratio/100);
+        var vpat = visits * (days/30);
+        var tv = hem * vpat;
+        var vr = tv * price;
+        var ar = hem * add;
+        var or2 = hem * (opRate/100) * opRev;
+        var tr = vr + ar + or2;
+        var nc = nurses > 0 ? nurses : Math.ceil(bed/50) + 1;
+        var tc = nc * salary + admin + other;
+        var pr = tr - tc;
+        return { dis:dis, hem:hem, tv:tv, vr:vr, ar:ar, or:or2, tr:tr, nc:nc, tc:tc, pr:pr, rate: tr>0?pr/tr:0 };
+    }
+    function calculateHEM() {
+        var v = function(id, def) { return parseInt(document.getElementById(id).value) || def; };
+        var r = calcHEM(v('bedCount',100), v('occupancyRate',90), v('avgStayDays',60), v('hemRatio',30), v('managementDays',30), v('visitsPerMonth',8), v('visitPrice',9000), v('additionRevenue',48500), v('outpatientRate',40), v('outpatientRevenue',20000), v('nurseCount',0), v('nurseSalary',6000000), v('adminCost',3000000), v('otherCost',2000000));
+        document.getElementById('totalRevenue').textContent = formatNumber(r.tr);
+        document.getElementById('revenueBreakdown').textContent = '訪問看護: '+formatNumber(r.vr)+' + 加算: '+formatNumber(r.ar)+' + 外来: '+formatNumber(r.or);
+        document.getElementById('annualDischarges').textContent = Math.round(r.dis)+'人';
+        document.getElementById('hemPatients').textContent = Math.round(r.hem)+'人';
+        document.getElementById('totalVisits').textContent = Math.round(r.tv)+'回';
+        document.getElementById('visitRevenue').textContent = formatNumber(r.vr);
+        document.getElementById('additionRev').textContent = formatNumber(r.ar);
+        document.getElementById('outpatientRev').textContent = formatNumber(r.or);
+        document.getElementById('nurseCountResult').textContent = r.nc+'人';
+        document.getElementById('totalCost').textContent = formatNumber(r.tc);
+        document.getElementById('profit').textContent = formatNumber(r.pr);
+        document.getElementById('profitBox').className = 'result-item highlight ' + (r.pr>=0?'positive':'negative');
+        // Scenario table
+        var beds = [30,50,75,100,125,150,200,250,300];
+        var tbody = document.getElementById('scenarioBody');
+        var cur = v('bedCount',100);
+        tbody.innerHTML = '';
+        for (var i=0;i<beds.length;i++) {
+            var s = calcHEM(beds[i], v('occupancyRate',90), v('avgStayDays',60), v('hemRatio',30), v('managementDays',30), v('visitsPerMonth',8), v('visitPrice',9000), v('additionRevenue',48500), v('outpatientRate',40), v('outpatientRevenue',20000), 0, v('nurseSalary',6000000), v('adminCost',3000000), v('otherCost',2000000));
+            var row = document.createElement('tr');
+            if (beds[i]===cur) row.className='current-row';
+            row.innerHTML = '<td>'+beds[i]+'床</td><td>'+Math.round(s.dis)+'人</td><td>'+Math.round(s.hem)+'人</td><td>'+formatNumber(s.tr)+'</td><td>'+formatNumber(s.tc)+'</td><td class="'+(s.pr>=0?'profit-positive':'profit-negative')+'">'+formatNumber(s.pr)+'</td><td>'+formatPercent(s.rate)+'</td>';
+            tbody.appendChild(row);
+        }
+    }
+    calculateHEM();
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/lang.js"></script>
+</body>
+</html>

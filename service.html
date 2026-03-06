@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service | さかえケアサービス</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/corporate.css">
+    <style>
+        .tab-section {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 2rem 8rem;
+        }
+
+        /* ── Tabs ── */
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 1.2rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-num {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--gray-300);
+            display: block;
+            margin-bottom: 0.3rem;
+            transition: color 0.3s;
+        }
+        .tab-btn.active .tab-num { color: var(--gray-500); }
+        .tab-label {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--gray-400);
+            letter-spacing: 0.04em;
+            transition: color 0.3s;
+        }
+        .tab-btn.active .tab-label { color: var(--black); }
+        .tab-btn:hover .tab-label { color: var(--charcoal); }
+
+        /* ── Panel ── */
+        .tab-panels { padding-top: 0.5rem; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .panel-head {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            padding: 2rem 0 0.5rem;
+        }
+
+        /* ── Category ── */
+        .category { border-bottom: 1px solid var(--gray-100); }
+        .category:first-of-type { border-top: 1px solid var(--gray-100); }
+        .category-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 1.4rem 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: padding-left 0.3s;
+        }
+        .category-btn:hover { padding-left: 0.5rem; }
+        .category-name {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            flex: 1;
+            text-align: left;
+            letter-spacing: 0.03em;
+        }
+        .category-count {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.65rem;
+            color: var(--gray-300);
+            margin-right: 1rem;
+        }
+        .category-toggle {
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            transition: transform 0.3s, color 0.3s;
+        }
+        .category.open .category-toggle {
+            transform: rotate(90deg);
+            color: var(--charcoal);
+        }
+
+        /* ── Products ── */
+        .products {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .category.open .products { max-height: 600px; }
+        .product-item {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 0 0.9rem 1.5rem;
+            border-top: 1px solid var(--gray-100);
+            transition: padding-left 0.3s;
+        }
+        .product-item:hover { padding-left: 2rem; }
+        .product-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            object-fit: cover;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .product-name {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            flex: 1;
+        }
+        .product-desc {
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: var(--gray-400);
+            margin-right: 1rem;
+        }
+        .product-arrow {
+            font-size: 0.7rem;
+            color: var(--gray-300);
+            transition: color 0.3s;
+        }
+        .product-item:hover .product-arrow { color: var(--primary); }
+        .empty-msg {
+            padding: 1rem 1.5rem;
+            font-size: 0.75rem;
+            color: var(--gray-300);
+            font-style: italic;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        /* ── Partners ── */
+        .partner-section {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 2rem 5rem;
+        }
+        .partner-title {
+            text-align: center;
+            padding: 5rem 0 3rem;
+        }
+        .partner-title-en {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .partner-title-jp {
+            font-family: "Noto Serif JP", serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            letter-spacing: 0.06em;
+        }
+        .partner-item {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .partner-item:first-child {
+            border-top: 1px solid var(--gray-100);
+        }
+        .partner-name {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            flex: 1;
+            letter-spacing: 0.03em;
+        }
+        a.partner-item { text-decoration: none; transition: padding-left 0.3s; }
+        a.partner-item:hover { padding-left: 0.5rem; }
+        a.partner-item:hover .partner-name { color: var(--primary); }
+        .partner-type {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            color: var(--gray-400);
+        }
+
+        @media (max-width: 640px) {
+            .tab-label { font-size: 0.75rem; }
+            .tab-btn { padding: 1rem 0.3rem; }
+            .product-desc { display: none; }
+            .product-item { padding-left: 1rem; }
+            .product-item:hover { padding-left: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="siteHeader">
+        <nav class="header-nav">
+            <a href="index.html" data-i18n="nav.top">Top</a>
+            <a href="service.html" data-i18n="nav.service">Service</a>
+            <a href="about-company.html" data-i18n="nav.company">Company</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="page-top">
+        <span class="page-label reveal" data-i18n="service.label">Our Business</span>
+        <h1 class="reveal" data-i18n="service.title">3つの事業領域</h1>
+    </section>
+
+    <section class="tab-section">
+        <nav class="tab-nav" id="tabNav"></nav>
+        <div class="tab-panels" id="tabPanels"></div>
+    </section>
+
+    <section class="partner-section">
+        <div class="partner-title reveal">
+            <span class="partner-title-en" data-i18n="service.partner.label">Partner</span>
+            <h2 class="partner-title-jp" data-i18n="service.partner.title">パートナー企業</h2>
+        </div>
+        <div id="partnerList"></div>
+    </section>
+
+    <section class="contact-band reveal">
+        <p data-i18n="service.contact.desc">サービスに関するご質問・ご相談</p>
+        <a href="contact.html" class="text-link">Contact →</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;letter-spacing:0.08em;color:var(--black);display:block;margin-bottom:0.3rem;">Sakae Care Service</span>
+                <p data-i18n="footer.brand">すべてのイノチを∞にツナぐ</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="about-company.html" data-i18n="footer.about">会社情報</a>
+                    <a href="about-message.html" data-i18n="footer.message">代表メッセージ</a>
+                    <a href="about-philosophy.html" data-i18n="footer.philosophy">経営理念</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.service">Service</h4>
+                    <a href="service.html" data-i18n="footer.dx">DX</a>
+                    <a href="service.html" data-i18n="footer.medical">医療</a>
+                    <a href="service.html" data-i18n="footer.kaigo">介護</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.support">Support</h4>
+                    <a href="contact.html" data-i18n="footer.inquiry">お問い合わせ</a>
+                    <a href="recruit.html" data-i18n="footer.recruit">採用情報</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy.html" data-i18n="footer.privacy">プライバシーポリシー</a>
+                    <a href="terms.html" data-i18n="footer.terms">利用規約</a>
+                    <a href="commerce.html" data-i18n="footer.commerce">特定商取引法</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="services.js"></script>
+    <script>
+        // Header scroll
+        const h = document.getElementById('siteHeader');
+        if(h) window.addEventListener('scroll', () => h.classList.toggle('scrolled', window.scrollY > 50));
+
+        // Reveal
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // ── Helper: get text by language ──
+        function t(val, lang) {
+            if (typeof val === 'object' && val !== null) return val[lang] || val['ja'] || '';
+            return val || '';
+        }
+
+        // ── Build service UI ──
+        function buildServiceUI(lang) {
+            lang = lang || 'ja';
+            var data = SERVICES_DATA;
+            var ui = (data.ui && data.ui[lang]) || data.ui['ja'] || { capabilities: 'できること', preparing: '準備中' };
+            var nav = document.getElementById('tabNav');
+            var panels = document.getElementById('tabPanels');
+            var activeTab = nav.querySelector('.tab-btn.active');
+            var activeId = activeTab ? activeTab.dataset.tab : null;
+
+            nav.innerHTML = '';
+            panels.innerHTML = '';
+
+            data.domains.forEach(function(domain, i) {
+                var isActive = activeId ? (domain.id === activeId) : (i === 0);
+
+                // Tab button
+                var btn = document.createElement('button');
+                btn.className = 'tab-btn' + (isActive ? ' active' : '');
+                btn.dataset.tab = domain.id;
+                btn.innerHTML = '<span class="tab-num">' + domain.num + '</span><span class="tab-label">' + t(domain.label, lang) + '</span>';
+                nav.appendChild(btn);
+
+                // Panel
+                var panel = document.createElement('div');
+                panel.className = 'tab-panel' + (isActive ? ' active' : '');
+                panel.id = 'panel-' + domain.id;
+
+                var head = document.createElement('p');
+                head.className = 'panel-head';
+                head.textContent = ui.capabilities;
+                panel.appendChild(head);
+
+                domain.categories.forEach(function(cat) {
+                    var catDiv = document.createElement('div');
+                    catDiv.className = 'category';
+                    var count = cat.products.length;
+                    var countHtml = count > 0 ? '<span class="category-count">' + count + '</span>' : '';
+
+                    var productsHtml = '';
+                    if (count > 0) {
+                        productsHtml = cat.products.map(function(p) {
+                            return '<a href="' + p.url + '" class="product-item">'
+                                + (p.icon ? '<img src="' + p.icon + '" alt="" class="product-icon">' : '')
+                                + '<span class="product-name">' + t(p.name, lang) + '</span>'
+                                + '<span class="product-desc">' + t(p.desc, lang) + '</span>'
+                                + '<span class="product-arrow">→</span></a>';
+                        }).join('');
+                    } else {
+                        productsHtml = '<p class="empty-msg">' + ui.preparing + '</p>';
+                    }
+
+                    catDiv.innerHTML = '<button class="category-btn">'
+                        + '<span class="category-name">' + t(cat.name, lang) + '</span>'
+                        + countHtml
+                        + '<span class="category-toggle">→</span></button>'
+                        + '<div class="products">' + productsHtml + '</div>';
+                    panel.appendChild(catDiv);
+                });
+
+                panels.appendChild(panel);
+            });
+
+            // Tab click
+            nav.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    nav.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                    panels.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+                    btn.classList.add('active');
+                    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Accordion click
+            panels.querySelectorAll('.category-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    btn.parentElement.classList.toggle('open');
+                });
+            });
+
+            // ── Partners ──
+            var list = document.getElementById('partnerList');
+            list.innerHTML = '';
+            if (data.partners && data.partners.length > 0) {
+                data.partners.forEach(function(p) {
+                    var inner = '<span class="partner-name">' + t(p.name, lang) + '</span>'
+                        + '<span class="partner-type">' + t(p.type, lang) + '</span>';
+                    if (p.url) {
+                        var a = document.createElement('a');
+                        a.className = 'partner-item';
+                        a.href = p.url;
+                        a.target = '_blank';
+                        a.rel = 'noopener';
+                        a.innerHTML = inner;
+                        list.appendChild(a);
+                    } else {
+                        var div = document.createElement('div');
+                        div.className = 'partner-item';
+                        div.innerHTML = inner;
+                        list.appendChild(div);
+                    }
+                });
+            }
+        }
+
+        // Initial build
+        var initLang = 'ja';
+        try { initLang = localStorage.getItem('sakae_lang') || 'ja'; } catch(e) {}
+        buildServiceUI(initLang);
+
+        // Expose for lang.js to call on switch
+        window.onLanguageChange = function(lang) { buildServiceUI(lang); };
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/lang.js"></script>
+</body>
+</html>

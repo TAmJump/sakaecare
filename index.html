@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>さかえケアサービス | すべてのイノチを∞にツナぐ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/corporate.css">
+    <style>
+        .index-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+        }
+        .index-hero-inner { text-align: center; padding: 0 2rem; }
+        .index-logo {
+            font-family: "Noto Serif JP", serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            color: var(--black);
+            line-height: 1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: softFadeUp 1.2s 0.3s forwards;
+        }
+        .index-tagline {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: softFadeUp 1.2s 0.7s forwards;
+        }
+        .index-sub {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--gray-500);
+            margin-top: 1.5rem;
+            letter-spacing: 0.06em;
+            line-height: 2;
+            opacity: 0;
+            animation: softFadeUp 1.2s 1s forwards;
+        }
+        .index-scroll {
+            position: absolute; bottom: 2.5rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+            opacity: 0; animation: softFadeUp 1s 1.5s forwards;
+        }
+        .index-scroll span {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gray-300);
+            text-transform: uppercase;
+        }
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--gray-300), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+        }
+
+        /* Two doors */
+        .index-nav { padding: 8rem 2rem; background: var(--warm-white); }
+        .index-nav-inner {
+            max-width: 800px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+        }
+        .index-nav-card {
+            display: block; padding: 3.5rem 2.5rem;
+            border: 1px solid var(--gray-100); border-radius: var(--radius-lg);
+            transition: all 0.5s ease; text-align: center;
+        }
+        .index-nav-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(232,166,0,0.12);
+            transform: translateY(-4px);
+        }
+        .index-nav-card .card-label {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.65rem; letter-spacing: 0.35em;
+            color: var(--primary-dark); text-transform: uppercase;
+            margin-bottom: 1.5rem; display: block;
+        }
+        .index-nav-card .card-heading {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.8rem; font-weight: 400;
+            letter-spacing: 0.12em; color: var(--black); margin-bottom: 1rem;
+        }
+        .index-nav-card .card-jp {
+            font-family: "Noto Serif JP", serif;
+            font-size: 0.82rem; font-weight: 300;
+            color: var(--gray-500); letter-spacing: 0.06em;
+            margin-bottom: 2rem; line-height: 1.8;
+        }
+        .index-nav-card .card-arrow {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.7rem; letter-spacing: 0.2em;
+            color: var(--primary); transition: letter-spacing 0.4s;
+        }
+        .index-nav-card:hover .card-arrow { letter-spacing: 0.35em; }
+
+        /* Partners - 流れるマーキー */
+        .index-partners {
+            padding: 6rem 0;
+            background: var(--cream);
+            text-align: center;
+            overflow: hidden;
+        }
+        .partners-label {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.65rem; letter-spacing: 0.35em;
+            color: var(--primary-dark); text-transform: uppercase; margin-bottom: 3rem;
+        }
+
+        /* マーキーラッパー */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .marquee-wrapper::before,
+        .marquee-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--cream), transparent);
+        }
+        .marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--cream), transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marqueeScroll 30s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 160px;
+            margin: 0 40px;
+            opacity: 0.5;
+            transition: opacity 0.4s;
+            border: 1px solid var(--gray-200);
+            border-radius: 50%;
+            background: #fff;
+            overflow: hidden;
+            padding: 25px;
+        }
+        .partner-item:hover { opacity: 0.9; }
+        .partner-item img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            filter: grayscale(100%);
+            object-fit: contain;
+        }
+        .partner-item .text-logo {
+            font-family: "Noto Sans JP", sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            letter-spacing: 0.02em;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Contact */
+        .index-contact { padding: 5rem 2rem; background: var(--white); text-align: center; }
+        .index-contact .cl {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.65rem; letter-spacing: 0.35em;
+            color: var(--primary-dark); text-transform: uppercase;
+            margin-bottom: 1rem; display: block;
+        }
+        .index-contact .contact-cta {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.82rem; letter-spacing: 0.15em; color: var(--primary);
+            padding: 0.7rem 2rem; border: 1px solid var(--primary); border-radius: var(--radius-md); transition: all 0.4s;
+        }
+        .index-contact .contact-cta:hover { gap: 1.2rem; background: var(--primary-pale); }
+        .index-contact .contact-cta svg {
+            width: 16px; height: 16px; stroke: var(--primary); fill: none; stroke-width: 1.5;
+        }
+
+        /* Header nav for index (fixed top-right) */
+        .header-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            padding: 1.5rem 2.5rem;
+            z-index: 100;
+        }
+        .header-nav a {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .header-nav a:hover {
+            color: var(--black);
+        }
+        .header-nav a.contact-link {
+            color: var(--primary);
+        }
+        .header-nav a.contact-link:hover {
+            color: #C48E00;
+        }
+
+        @media (max-width: 640px) {
+            .index-nav-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+            .index-nav-card { padding: 2.5rem 2rem; }
+            .partner-item {
+                width: 120px;
+                height: 120px;
+                margin: 0 25px;
+                padding: 20px;
+            }
+            .partner-item .text-logo {
+                font-size: 0.65rem;
+            }
+            .header-nav {
+                gap: 1.2rem;
+                padding: 1rem 1.2rem;
+            }
+            .header-nav a {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダーナビ（右上） -->
+    <nav class="header-nav">
+        <a href="index.html" data-i18n="nav.top">TOP</a>
+        <a href="service.html" data-i18n="nav.service">SERVICE</a>
+        <a href="about-company.html" data-i18n="nav.company">COMPANY</a>
+        <a href="contact.html" class="contact-link" data-i18n="nav.contact">CONTACT</a>
+    </nav>
+
+    <section class="index-hero">
+        <div class="index-hero-inner">
+            <h1 class="index-logo" data-i18n="index.hero.title">さかえケアサービス</h1>
+            <p class="index-tagline" data-i18n="index.hero.tagline">Sakae Care Service</p>
+            <p class="index-sub" data-i18n="index.hero.desc">すべてのイノチを∞にツナぐ</p>
+        </div>
+        <div class="index-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="index-nav">
+        <div class="index-nav-inner">
+            <a href="about-company.html" class="index-nav-card reveal">
+                <span class="card-label">About</span>
+                <h2 class="card-heading">Company</h2>
+                <p class="card-jp" data-i18n="index.about.desc">会社情報・代表メッセージ・経営理念</p>
+                <span class="card-arrow">View →</span>
+            </a>
+            <a href="service.html" class="index-nav-card reveal delay-1">
+                <span class="card-label">Service</span>
+                <h2 class="card-heading">Service</h2>
+                <p class="card-jp" data-i18n="index.service.desc">DX・医療・介護</p>
+                <span class="card-arrow">View →</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="index-partners">
+        <p class="partners-label reveal">Partners</p>
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                <!-- ロゴセット1（後でロゴ画像を追加） -->
+                <div class="partner-item"><span class="text-logo">GO TO HAPPY LIFE</span></div>
+                <div class="partner-item"><span class="text-logo">コンパスメディカルグループ</span></div>
+                <div class="partner-item"><span class="text-logo">メディパス</span></div>
+                <div class="partner-item"><span class="text-logo">タムジ</span></div>
+                <!-- 複製（無限ループ用） -->
+                <div class="partner-item"><span class="text-logo">GO TO HAPPY LIFE</span></div>
+                <div class="partner-item"><span class="text-logo">コンパスメディカルグループ</span></div>
+                <div class="partner-item"><span class="text-logo">メディパス</span></div>
+                <div class="partner-item"><span class="text-logo">タムジ</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="index-contact">
+        <div>
+            <span class="cl reveal" data-i18n="index.contact.label">Contact</span>
+            <p class="reveal" style="margin-bottom: 2rem;" data-i18n="index.contact.desc">サービスに関するご質問・ご相談</p>
+            <a href="contact.html" class="contact-cta reveal">
+                <span data-i18n="index.contact.cta">お問い合わせ</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;letter-spacing:0.08em;color:var(--black);display:block;margin-bottom:0.3rem;">Sakae Care Service</span>
+                <p data-i18n="footer.brand">すべてのイノチを∞にツナぐ</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="about-company.html" data-i18n="footer.about">会社情報</a>
+                    <a href="about-message.html" data-i18n="footer.message">代表メッセージ</a>
+                    <a href="about-philosophy.html" data-i18n="footer.philosophy">経営理念</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.service">Service</h4>
+                    <a href="service.html" data-i18n="footer.dx">DX</a>
+                    <a href="service.html" data-i18n="footer.medical">医療</a>
+                    <a href="service.html" data-i18n="footer.kaigo">介護</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.support">Support</h4>
+                    <a href="contact.html" data-i18n="footer.inquiry">お問い合わせ</a>
+                    <a href="recruit.html" data-i18n="footer.recruit">採用情報</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy.html" data-i18n="footer.privacy">プライバシーポリシー</a>
+                    <a href="terms.html" data-i18n="footer.terms">利用規約</a>
+                    <a href="commerce.html" data-i18n="footer.commerce">特定商取引法</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible','animated'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/lang.js"></script>
+</body>
+</html>

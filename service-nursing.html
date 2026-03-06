@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訪問看護ステーション | さかえケアサービス</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/corporate.css">
+    <style>
+        .ns-hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+        }
+        .ns-hero-label {
+            font-family: var(--font-display);
+            font-size: 0.7rem; letter-spacing: 0.35em;
+            color: var(--primary-dark); text-transform: uppercase;
+            display: block; margin-bottom: 1.5rem;
+        }
+        .ns-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            font-weight: 400; line-height: 1.7;
+            letter-spacing: 0.06em; color: var(--black);
+            margin-bottom: 1rem;
+        }
+        .ns-hero-sub {
+            font-family: var(--font-serif);
+            font-size: 1rem; color: var(--gray-500);
+            font-weight: 300; letter-spacing: 0.04em;
+        }
+        .ns-badges {
+            display: flex; justify-content: center; gap: 1.5rem;
+            margin-top: 2rem; flex-wrap: wrap;
+        }
+        .ns-badge {
+            background: var(--primary-pale);
+            color: var(--primary-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem; font-weight: 500;
+            border: 1px solid var(--primary);
+        }
+
+        /* Service cards */
+        .ns-services {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .ns-service-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            border: 1px solid var(--gray-100);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .ns-service-card h4 {
+            font-family: var(--font-serif);
+            font-size: 0.95rem; font-weight: 400;
+            color: var(--primary-dark); margin-bottom: 0.8rem;
+        }
+        .ns-service-card p {
+            font-size: 0.85rem; color: var(--gray-500);
+            line-height: 2;
+        }
+
+        /* Office info */
+        .ns-office {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gray-100);
+        }
+        .ns-office h3 {
+            font-family: var(--font-serif);
+            font-size: 1.05rem; font-weight: 400;
+            color: var(--black); margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        .ns-office-table {
+            width: 100%; border-collapse: collapse;
+        }
+        .ns-office-table th {
+            font-family: var(--font-display);
+            font-size: 0.78rem; font-weight: 400;
+            letter-spacing: 0.08em; color: var(--gray-400);
+            text-align: left; padding: 0.8rem 1rem 0.8rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            width: 130px; vertical-align: top;
+        }
+        .ns-office-table td {
+            font-size: 0.85rem; font-weight: 300;
+            color: var(--charcoal); padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        @media (max-width: 768px) {
+            .ns-services { grid-template-columns: 1fr; }
+            .ns-badges { gap: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="siteHeader">
+        <nav class="header-nav">
+            <a href="index.html" data-i18n="nav.top">Top</a>
+            <a href="service.html" data-i18n="nav.service">Service</a>
+            <a href="about-company.html" data-i18n="nav.company">Company</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="ns-hero">
+        <span class="ns-hero-label">Home Visit Nursing</span>
+        <h1>さかえケアサービス<br>訪問看護ステーション</h1>
+        <p class="ns-hero-sub">住み慣れた場所で、自分らしく生きる喜び</p>
+        <div class="ns-badges">
+            <span class="ns-badge">24時間365日対応</span>
+            <span class="ns-badge">精神科訪問看護対応</span>
+        </div>
+    </section>
+
+    <div style="max-width:780px;margin:0 auto;padding:4rem 2rem;">
+
+        <!-- サービス内容 -->
+        <section style="margin-bottom:4rem;">
+            <span class="section-label">Service</span>
+            <h2 style="margin-bottom:0.5rem;">サービス内容</h2>
+            <div class="ns-services">
+                <div class="ns-service-card">
+                    <h4>24時間365日営業</h4>
+                    <p>必要時には緊急訪問ができる体制を整えています。</p>
+                </div>
+                <div class="ns-service-card">
+                    <h4>医療依存度の高い方への訪問</h4>
+                    <p>難病、床ずれ、人工呼吸器、ターミナルケアなどご相談ください。</p>
+                </div>
+                <div class="ns-service-card">
+                    <h4>精神科訪問看護に対応</h4>
+                    <p>精神科での勤務経験が豊富な看護師が在籍しています。</p>
+                </div>
+                <div class="ns-service-card">
+                    <h4>多職種連携の推進</h4>
+                    <p>地域の医療機関、居宅介護支援事業所等と緊密な連携を図ります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 事業所紹介 -->
+        <section style="margin-bottom:4rem;">
+            <span class="section-label">Office</span>
+            <h2 style="margin-bottom:1.5rem;">事業所紹介</h2>
+
+            <div class="ns-office">
+                <h3>練馬本部</h3>
+                <table class="ns-office-table">
+                    <tr><th>住所</th><td>〒176-0012 東京都練馬区豊玉北5-11-4</td></tr>
+                    <tr><th>Email</th><td><a href="mailto:info@scsgo.co.jp">info@scsgo.co.jp</a></td></tr>
+                    <tr><th>事業所番号</th><td>1362090290</td></tr>
+                    <tr><th>ステーション番号</th><td>7294242</td></tr>
+                    <tr><th>アクセス</th><td>大江戸線 練馬駅、西武有楽町線 練馬駅 徒歩7分</td></tr>
+                </table>
+            </div>
+
+            
+        </section>
+
+    </div>
+
+    <section class="contact-band">
+        <p>ご利用、見学に関するご相談など</p>
+        <a href="contact.html" class="text-link">お問い合わせ →</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="text-logo" style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;letter-spacing:0.08em;color:var(--black);display:block;margin-bottom:0.3rem;">Sakae Care Service</span>
+                <p data-i18n="footer.brand">すべてのイノチを∞にツナぐ</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4 data-i18n="footer.company">Company</h4>
+                    <a href="about-company.html" data-i18n="footer.about">会社情報</a>
+                    <a href="about-message.html" data-i18n="footer.message">代表メッセージ</a>
+                    <a href="about-philosophy.html" data-i18n="footer.philosophy">経営理念</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.service">Service</h4>
+                    <a href="service.html" data-i18n="footer.dx">DX</a>
+                    <a href="service.html" data-i18n="footer.medical">医療</a>
+                    <a href="service.html" data-i18n="footer.kaigo">介護</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.support">Support</h4>
+                    <a href="contact.html" data-i18n="footer.inquiry">お問い合わせ</a>
+                    <a href="recruit.html" data-i18n="footer.recruit">採用情報</a>
+                </div>
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legal">Legal</h4>
+                    <a href="privacy.html" data-i18n="footer.privacy">プライバシーポリシー</a>
+                    <a href="terms.html" data-i18n="footer.terms">利用規約</a>
+                    <a href="security.html" data-i18n="footer.security">情報セキュリティ</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+    window.addEventListener('scroll', function() {
+        var h = document.getElementById('siteHeader');
+        if (h) { if (window.scrollY > 40) h.classList.add('scrolled'); else h.classList.remove('scrolled'); }
+    });
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/lang.js"></script>
+</body>
+</html>

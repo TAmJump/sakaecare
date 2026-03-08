@@ -10,8 +10,8 @@ var SERVICES_DATA = {
           "products": [
             {
               "name": { "ja": "MedAdapt", "en": "MedAdapt" },
-              "desc": { "ja": "医療・介護DXプラットフォーム", "en": "Medical & Care DX Platform" },
-              "url": "#",
+              "desc": { "ja": "医療介護連携OS", "en": "Medical Care Collaboration OS" },
+              "url": "service-medadapt.html",
               "icon": ""
             }
           ]

@@ -11,7 +11,7 @@ var SERVICES_DATA = {
             {
               "name": { "ja": "MedAdapt", "en": "MedAdapt" },
               "desc": { "ja": "医療介護連携OS", "en": "Medical Care Collaboration OS" },
-              "url": "service-medadapt.html",
+              "url": "MedAdapt/index.html",
               "icon": ""
             }
           ]

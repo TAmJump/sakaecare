@@ -9,6 +9,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/corporate.css">
+    <style>
+        .thank-you-message { text-align: center; padding: 4rem 2rem; }
+        .thank-you-message h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; color: var(--black); margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+        .thank-you-message p { font-size: 0.95rem; color: var(--gray-500); line-height: 2; }
+        .thank-you-message .receipt-number {
+            display: inline-block; margin: 1.5rem 0; padding: 1rem 2rem;
+            background: var(--primary-pale); border: 1px solid var(--primary);
+            border-radius: var(--radius-md); font-family: var(--font-display);
+            font-size: 1.1rem; color: var(--primary-dark); letter-spacing: 0.08em;
+        }
+        .thank-you-message .back-link {
+            display: inline-block; margin-top: 2rem;
+            font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.1em;
+            color: var(--primary-dark); padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--primary); transition: all 0.3s;
+        }
+        .thank-you-message .back-link:hover { opacity: 0.7; }
+
+        .confirm-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.45);
+            z-index: 2000; justify-content: center; align-items: center;
+        }
+        .confirm-overlay.show { display: flex; }
+        .confirm-modal {
+            background: var(--white); max-width: 500px; width: 90%;
+            max-height: 80vh; overflow-y: auto;
+            border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .confirm-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--gray-100); }
+        .confirm-header h3 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; color: var(--black); letter-spacing: 0.08em; }
+        .confirm-body { padding: 1.5rem 2rem; }
+        .confirm-item { margin-bottom: 1.2rem; }
+        .confirm-item:last-child { margin-bottom: 0; }
+        .confirm-label { font-size: 0.72rem; color: var(--gray-400); margin-bottom: 0.3rem; letter-spacing: 0.05em; }
+        .confirm-value { font-size: 0.92rem; color: var(--charcoal); line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+        .confirm-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--gray-100); display: flex; gap: 1rem; justify-content: center; }
+        .confirm-btn { padding: 0.8rem 2rem; font-family: var(--font-sans); font-size: 0.85rem; letter-spacing: 0.08em; border: none; cursor: pointer; transition: all 0.3s; border-radius: var(--radius-sm); }
+        .confirm-btn.cancel { background: var(--cream); color: var(--gray-500); }
+        .confirm-btn.cancel:hover { background: var(--gray-100); }
+        .confirm-btn.submit { background: var(--primary-dark); color: #fff; }
+        .confirm-btn.submit:hover { background: var(--primary); box-shadow: 0 4px 16px rgba(232,166,0,0.25); }
+        .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
 </head>
 <body>
     <header id="siteHeader">
@@ -23,13 +67,12 @@
     <section class="page-top">
         <span class="page-label" data-i18n="contact.label">Contact</span>
         <h1 data-i18n="contact.title">お問い合わせ</h1>
+        <p class="page-sub" data-i18n="contact.desc">ご質問・ご相談はこちらからお気軽にどうぞ。<br>後日、担当者よりご連絡いたします。</p>
     </section>
 
     <section class="sec">
         <div class="narrow-form">
-            <p class="body-text" style="text-align:center;margin-bottom:2.5rem;" data-i18n="contact.desc">ご質問・ご相談はこちらからお気軽にどうぞ。<br>後日、担当者よりご連絡いたします。</p>
-
-            <form action="https://formspree.io/f/mbdaovnz" method="POST">
+            <form id="contactForm">
                 <div class="fg">
                     <label data-i18n="contact.name">お名前<span class="req">*</span></label>
                     <input type="text" name="name" required data-i18n-ph="contact.ph.name" placeholder="山田 太郎">
@@ -38,7 +81,6 @@
                     <label data-i18n="contact.email">メールアドレス<span class="req">*</span></label>
                     <input type="email" name="email" required placeholder="info@example.com">
                 </div>
-
                 <div class="fg">
                     <label data-i18n="contact.category">お問い合わせ種別<span class="req">*</span></label>
                     <select name="category" required>
@@ -54,12 +96,33 @@
                     <label data-i18n="contact.message">お問い合わせ内容<span class="req">*</span></label>
                     <textarea name="message" required data-i18n-ph="contact.ph.message" placeholder="お問い合わせ内容をご記入ください"></textarea>
                 </div>
+                <input type="hidden" name="project" value="scsgo">
                 <button type="submit" class="submit-btn" data-i18n="contact.submit">送信する</button>
             </form>
 
-
+            <div class="other-contact" id="otherContact">
+                <p style="font-size:0.78rem;color:var(--gray-400);margin-bottom:0.5rem;">メールでのお問い合わせ</p>
+                <a href="mailto:info@scsgo.co.jp" class="text-link">info@scsgo.co.jp</a>
+            </div>
         </div>
     </section>
+
+    <!-- 確認モーダル -->
+    <div id="confirmOverlay" class="confirm-overlay">
+        <div class="confirm-modal">
+            <div class="confirm-header"><h3>入力内容の確認</h3></div>
+            <div class="confirm-body">
+                <div class="confirm-item"><div class="confirm-label">お名前</div><div class="confirm-value" id="confirmName"></div></div>
+                <div class="confirm-item"><div class="confirm-label">メールアドレス</div><div class="confirm-value" id="confirmEmail"></div></div>
+                <div class="confirm-item"><div class="confirm-label">お問い合わせ種別</div><div class="confirm-value" id="confirmCategory"></div></div>
+                <div class="confirm-item"><div class="confirm-label">お問い合わせ内容</div><div class="confirm-value" id="confirmMessage"></div></div>
+            </div>
+            <div class="confirm-footer">
+                <button type="button" class="confirm-btn cancel" id="confirmCancel">修正する</button>
+                <button type="button" class="confirm-btn submit" id="confirmSubmit">送信する</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-inner">
@@ -97,18 +160,92 @@
             <p class="footer-copy" data-i18n="footer.copy">&copy; 2015 株式会社さかえケアサービス All Rights Reserved.</p>
         </div>
     </footer>
+
     <script>
+    // ━━━ Config ━━━
+    var WORKER_URL = 'https://tamjump-contact-api.animalb001.workers.dev/contact';
+    var PROJECT = 'scsgo';
+
+    // ━━━ Header scroll ━━━
     window.addEventListener('scroll', function() {
         var h = document.getElementById('siteHeader');
         if (h) { if (window.scrollY > 40) h.classList.add('scrolled'); else h.classList.remove('scrolled'); }
     });
-    document.addEventListener('DOMContentLoaded', function() {
-        var els = document.querySelectorAll('.reveal');
-        if (!els.length) return;
-        var obs = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.15 });
-        els.forEach(function(el) { obs.observe(el); });
+
+    // ━━━ Elements ━━━
+    var form = document.getElementById('contactForm');
+    var confirmOverlay = document.getElementById('confirmOverlay');
+    var confirmCancel = document.getElementById('confirmCancel');
+    var confirmSubmit = document.getElementById('confirmSubmit');
+
+    // ━━━ Submit → 確認モーダル ━━━
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('confirmName').textContent = form.querySelector('input[name="name"]').value;
+        document.getElementById('confirmEmail').textContent = form.querySelector('input[name="email"]').value;
+        document.getElementById('confirmCategory').textContent = form.querySelector('select[name="category"]').value;
+        document.getElementById('confirmMessage').textContent = form.querySelector('textarea[name="message"]').value;
+        confirmOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // ━━━ 修正する ━━━
+    confirmCancel.addEventListener('click', function() {
+        confirmOverlay.classList.remove('show');
+        document.body.style.overflow = '';
+    });
+    confirmOverlay.addEventListener('click', function(e) {
+        if (e.target === confirmOverlay) {
+            confirmOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // ━━━ 送信 → Worker API ━━━
+    confirmSubmit.addEventListener('click', async function() {
+        confirmSubmit.disabled = true;
+        confirmSubmit.textContent = '送信中...';
+
+        var payload = {
+            project: PROJECT,
+            name: form.querySelector('input[name="name"]').value,
+            email: form.querySelector('input[name="email"]').value,
+            category: form.querySelector('select[name="category"]').value,
+            message: form.querySelector('textarea[name="message"]').value
+        };
+
+        try {
+            var response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            var data = await response.json();
+
+            if (response.ok && data.success) {
+                confirmOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+                var receiptId = data.receiptId || '';
+                var oc = document.getElementById('otherContact');
+                if (oc) oc.style.display = 'none';
+
+                form.innerHTML =
+                    '<div class="thank-you-message">' +
+                    '<h2>ありがとうございます</h2>' +
+                    '<p>お問い合わせを受け付けました。<br>確認メールをお送りしましたのでご確認ください。</p>' +
+                    (receiptId ? '<div class="receipt-number">' + receiptId + '</div>' : '') +
+                    '<p style="font-size:0.82rem;color:var(--gray-400);margin-top:0.5rem;">この番号はお問い合わせ時の照会にご利用いただけます。</p>' +
+                    '<a href="index.html" class="back-link">トップに戻る →</a>' +
+                    '</div>';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                throw new Error(data.error || '送信に失敗しました');
+            }
+        } catch (error) {
+            alert('送信に失敗しました。\n時間をおいて再度お試しいただくか、\ninfo@scsgo.co.jp までご連絡ください。');
+            confirmSubmit.disabled = false;
+            confirmSubmit.textContent = '送信する';
+        }
     });
     </script>
     <script src="js/translations.js"></script>

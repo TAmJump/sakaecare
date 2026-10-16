@@ -78,11 +78,6 @@ var SERVICES_DATA = {
       "name": { "ja": "株式会社メディパス", "en": "Medipass Co., Ltd." },
       "type": { "ja": "医療・介護", "en": "Medical & Care" },
       "url": "https://medipass.co.jp/"
-    },
-    {
-      "name": { "ja": "タムジ株式会社", "en": "TAmJ Co., Ltd." },
-      "type": { "ja": "開発・経営支援", "en": "Development & Management" },
-      "url": "https://tamj.co.jp/"
     }
   ],
   "ui": {
